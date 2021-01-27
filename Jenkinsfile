@@ -4,7 +4,19 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'echo Hello World'
+                sh './mvnw clean install -DskipTests'
+            }
+        }
+
+        stage('Code Analysis') {
+            steps {
+                sh './mvnw checkstyle:checkstyle'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh './mvnw test'
             }
         }
     }
